@@ -1,0 +1,221 @@
+
+" plugins/10-init/plugins/40-dein/files -------------------
+
+set runtimepath^=~/.vim/dein/repos/github.com/Shougo/dein.vim
+
+call dein#begin(expand('~/.vim/dein'))
+
+call dein#add('Shougo/dein.vim')
+call dein#add('Shougo/vimproc.vim', {'build': 'make'})
+call dein#add('Shougo/unite.vim')
+
+" plugins/30-basic/plugins/00-unite/files -------------------
+
+call dein#add('Shougo/unite-outline')
+call dein#add('Shougo/unite-help')
+call dein#add('Shougo/neoyank.vim')
+call dein#add('Shougo/neomru.vim')
+call dein#add('tsukkee/unite-tag')
+call dein#add('osyo-manga/unite-quickfix')
+
+" plugins/30-basic/plugins/00-unite/plugins/10-unite-colorscheme/files -------------------
+
+call dein#add('ujihisa/unite-colorscheme')
+
+" plugins/30-basic/plugins/01-ctrlp/files -------------------
+
+call dein#add('ctrlpvim/ctrlp.vim')
+
+" plugins/30-basic/plugins/greplace/files -------------------
+
+call dein#add('greplace.vim')
+
+" plugins/30-basic/plugins/gundo/files -------------------
+
+call dein#add('sjl/gundo.vim')
+
+" plugins/30-basic/plugins/indent/guides -------------------
+
+call dein#add('Indent-Guides')
+colorscheme default
+
+" plugins/30-basic/plugins/nerdtools/plugins/nerdtree/files -------------------
+
+call dein#add('scrooloose/nerdtree')
+
+" plugins/30-basic/plugins/nerdtools/plugins/nerdtree/plugins/nerdtree-git/files -------------------
+
+call dein#add('Xuyuanp/nerdtree-git-plugin')
+
+" plugins/30-basic/plugins/nerdtools/plugins/nerdtree/plugins/nerdtree-tabs/files -------------------
+
+call dein#add('jistr/vim-nerdtree-tabs')
+
+" plugins/30-basic/plugins/nerdtools/plugins/netdcommenter/files -------------------
+
+call dein#add('scrooloose/nerdcommenter')
+
+" plugins/30-basic/plugins/repeat/files -------------------
+
+" replacement for the repeat mapping (.) to support plugins
+call dein#add('tpope/vim-repeat')
+
+" plugins/30-basic/plugins/session/files -------------------
+
+call dein#add('xolox/vim-misc')
+call dein#add('xolox/vim-session')
+
+" plugins/30-basic/plugins/vim-ag/files -------------------
+
+call dein#add('rking/ag.vim')
+
+" plugins/30-basic/plugins/yankring/files -------------------
+
+call dein#add('YankRing.vim')
+
+" plugins/40-utils/plugins/utl/files -------------------
+
+
+call dein#add('utl.vim')
+
+" plugins/50-dev/plugins/delimitmate/files -------------------
+
+call dein#add('Raimondi/delimitMate')
+
+" plugins/50-dev/plugins/editorconfig/files -------------------
+
+call dein#add('editorconfig/editorconfig-vim')
+
+" plugins/50-dev/plugins/endwise/files -------------------
+
+" end certain structures automatically, e.g. begin/end etc.
+call dein#add('tpope/vim-endwise')
+
+" plugins/50-dev/plugins/fugitive/files -------------------
+
+call dein#add('tpope/vim-fugitive')
+call dein#add('Merginal')
+
+" plugins/50-dev/plugins/git-gutter/files -------------------
+
+call dein#add('airblade/vim-gitgutter')
+
+" plugins/50-dev/plugins/gitignore/files -------------------
+
+" hide .gitignore-d files from vim
+call dein#add('vitaly/vim-gitignore')
+
+" plugins/50-dev/plugins/surround/files -------------------
+
+call dein#add('tpope/vim-surround')
+
+" plugins/50-dev/plugins/syntastic/files -------------------
+
+call dein#add('scrooloose/syntastic')
+
+" plugins/50-dev/plugins/tmux-navigator/files -------------------
+
+call dein#add('christoomey/vim-tmux-navigator')
+
+" plugins/60-lang/plugins/dockefile/files -------------------
+
+call dein#add('ekalinin/Dockerfile.vim')
+
+" plugins/60-lang/plugins/elixir/files -------------------
+
+call dein#add('elixir-lang/vim-elixir')
+
+" plugins/60-lang/plugins/javascript/files -------------------
+
+call dein#add('pangloss/vim-javascript')
+
+" plugins/60-lang/plugins/javascript/plugins/coffeescript/files -------------------
+
+call dein#add('kchmck/vim-coffee-script')
+
+" plugins/60-lang/plugins/json/files -------------------
+
+call dein#add('elzr/vim-json')
+
+" plugins/60-lang/plugins/markdown/files -------------------
+
+call dein#add('tpope/vim-markdown')
+
+" plugins/60-lang/plugins/ruby/files -------------------
+
+" Ruby syntax support
+call dein#add('vim-ruby/vim-ruby')
+
+" A custom text object for selecting ruby blocks (ar/ir)
+call dein#add('kana/vim-textobj-user')
+call dein#add('nelstrom/vim-textobj-rubyblock')
+
+" toggle ruby blocks style
+call dein#add('vim-scripts/blockle.vim')
+
+" bundler integration (e.g. :Bopen)
+call dein#add('tpope/vim-bundler')
+
+" rake integration
+call dein#add('tpope/vim-rake')
+
+" ruby refactoring
+call dein#add('ecomba/vim-ruby-refactoring')
+
+" plugins/60-lang/plugins/ruby/plugins/1-haml/files -------------------
+
+call dein#add('tpope/vim-haml')
+
+" plugins/60-lang/plugins/ruby/plugins/9-rails/files -------------------
+
+" Rails support
+call dein#add('tpope/vim-rails')
+
+" apidock.com docs integration
+call dein#add('apidock.vim')
+
+" lightweight Rspec runner for Vim
+call dein#add('thoughtbot/vim-rspec')
+
+" Rails i18n extraction plugin
+call dein#add('stefanoverna/vim-i18n')
+
+" plugins/60-lang/plugins/rust/files -------------------
+
+call dein#add('rust-lang/rust.vim')
+
+" plugins/60-lang/plugins/tasks/files -------------------
+
+call dein#add('irrationalistic/vim-tasks')
+
+" plugins/60-lang/plugins/tmux/files -------------------
+
+call dein#add('tsaleh/vim-tmux')
+
+" plugins/80-extra/files -------------------
+
+call dein#add('guns/xterm-color-table.vim')
+
+" plugins/80-extra/plugins/20-airline/files -------------------
+
+call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
+
+" plugins/80-extra/plugins/90-themes/files -------------------
+
+call dein#add('altercation/vim-colors-solarized')
+call dein#add('chriskempson/tomorrow-theme', {'rtp': 'vim/'})
+call dein#add('tpope/vim-vividchalk')
+call dein#add('nanotech/jellybeans.vim')
+
+" plugins/90-final/plugins/10-local-configs/files -------------------
+
+if filereadable(expand("~/.vimrc.plugins"))
+    source ~/.vimrc.plugins
+endif
+
+" plugins/90-final/plugins/20-gvim-configs/files -------------------
+
+if has('gui_running')
+  source ~/.vim/gvimrc.plugins
+end

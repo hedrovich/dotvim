@@ -1,0 +1,195 @@
+
+" plugins/20-default/plugins/10-global-defaults/files -------------------
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" make Y consistent with C and D
+nnoremap Y y$
+
+" toggle highlight trailing whitespace
+nmap <silent> <leader>s :set nolist!<CR>
+
+" Ctrl-N to disable search match highlight
+nmap <silent> <C-N> :silent noh<CR>
+
+" Ctrol-E to switch between 2 last buffers
+nmap <C-E> :b#<CR>
+
+" Make shift-insert work like in Xterm
+map <S-Insert> <MiddleMouse>
+map! <S-Insert> <MiddleMouse>
+
+" ,n to get the next location (compilation errors, grep etc)
+nmap <leader>n :cn<CR>
+nmap <leader>N :cp<CR>
+
+" ,d to diffupdate
+nmap <leader>d :diffupdate<CR>
+nmap <leader>dp :diffput<CR>
+nmap <leader>dg :diffget<CR>
+
+" driving me insane this thing
+command Q q
+command Qa qa
+command QA qa
+command -nargs=* -complete=file W w <args>
+command -nargs=* -complete=file E e <args>
+
+" center display after searching
+nnoremap n   nzz
+nnoremap N   Nzz
+nnoremap *   *zz
+nnoremap #   #zz
+nnoremap g*  g*zz
+nnoremap g#  g#z
+
+" fast expand current file's directory in command mode
+cnoremap %% <C-R>=expand('%:h').'/'<cr>
+
+""""""""""" awesome stuff from vimbits.com
+
+" keep selection after in/outdent
+vnoremap < <gv
+vnoremap > >gv
+
+" better navigation of wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+" easier increment/decrement
+nnoremap + <C-a>
+nnoremap - <C-x>
+
+" remove trailing spaces
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr>
+
+" plugins/30-basic/plugins/01-ctrlp/files -------------------
+
+nmap <leader>. :CtrlPClearCache<cr>:CtrlPMixed<cr>
+nmap <leader>l :CtrlPLine<cr>
+nmap <leader>b :CtrlPBuff<cr>
+nmap <leader>m :CtrlPBufTag<cr>
+nmap <leader>M :CtrlPBufTagAll<cr>
+nmap <leader>q :CtrlPQuickfix<cr>
+nmap <leader>D :CtrlPDir <space>
+
+" plugins/30-basic/plugins/gundo/files -------------------
+
+nmap <leader>u :GundoToggle<CR>
+
+" plugins/30-basic/plugins/nerdtools/plugins/nerdtree/plugins/nerdtree-tabs/files -------------------
+
+" nerdtree with tqbs
+" Ctrl-P to Display the file browser tree
+nmap <C-P> :NERDTreeTabsToggle<CR>
+" ,p to show current file in the tree
+nmap <leader>p :NERDTreeFind<CR>
+
+" plugins/30-basic/plugins/nerdtools/plugins/netdcommenter/files -------------------
+
+" nerdcommenter
+" ,/ to invert comment on the current line/selection
+nmap <leader>/ :call NERDComment(0, "invert")<cr>
+vmap <leader>/ :call NERDComment(0, "invert")<cr>
+
+" plugins/30-basic/plugins/session/files -------------------
+
+let g:session_autosave = 'no'
+let g:session_autoload = 'no'
+
+nmap <leader>SS :SaveSession
+nmap <leader>SO :OpenSession
+if has('gui_running')
+  nmap <leader>SR :RestartVim<CR>
+endif
+
+" plugins/30-basic/plugins/vim-ag/files -------------------
+
+nmap <leader>k :Ag<space>
+
+" plugins/30-basic/plugins/yankring/files -------------------
+
+" ,y to show the yankring
+nmap <leader>y :YRShow<cr>
+
+" plugins/40-utils/plugins/utl/files -------------------
+
+nmap <leader>o :Utl <space>
+
+" plugins/50-dev/plugins/fugitive/files -------------------
+
+" ,g for Ggrep
+nmap <leader>g :silent Ggrep<space>
+
+" ,f for global git serach for word under the cursor (with highlight)
+nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
+
+" same in visual mode
+vmap <leader>f y:let @/=escape(@", '\\[]$^*.')<CR>:set hls<CR>:silent Ggrep -F "<C-R>=escape(@", '\\"#')<CR>"<CR>:ccl<CR>:cw<CR><CR>
+
+" plugins/60-lang/plugins/ruby/plugins/9-rails/files -------------------
+
+" vim-rspec
+map <Leader>r :call RunNearestSpec()<CR>
+
+" plugins/70-custom/files -------------------
+
+" Jump to the next or previous line that has the same level or a lower
+" level of indentation than the current line.
+"
+" exclusive (bool): true: Motion is exclusive
+" false: Motion is inclusive
+" fwd (bool): true: Go to next line
+" false: Go to previous line
+" lowerlevel (bool): true: Go to line with lower indentation level
+" false: Go to line with the same indentation level
+" skipblanks (bool): true: Skip blank lines
+" false: Don't skip blank lines
+function! NextIndent(exclusive, fwd, lowerlevel, skipblanks)
+  let line = line('.')
+  let column = col('.')
+  let lastline = line('$')
+  let indent = indent(line)
+  let stepvalue = a:fwd ? 1 : -1
+  while (line > 0 && line <= lastline)
+    let line = line + stepvalue
+    if ( ! a:lowerlevel && indent(line) == indent ||
+          \ a:lowerlevel && indent(line) < indent)
+      if (! a:skipblanks || strlen(getline(line)) > 0)
+        if (a:exclusive)
+          let line = line - stepvalue
+        endif
+        exe line
+        exe "normal " column . "|"
+        return
+      endif
+    endif
+  endwhile
+endfunction
+
+" Moving back and forth between lines of same or lower indentation.
+nnoremap <silent> [l :call NextIndent(0, 0, 0, 1)<CR>
+nnoremap <silent> ]l :call NextIndent(0, 1, 0, 1)<CR>
+nnoremap <silent> [L :call NextIndent(0, 0, 1, 1)<CR>
+nnoremap <silent> ]L :call NextIndent(0, 1, 1, 1)<CR>
+vnoremap <silent> [l <Esc>:call NextIndent(0, 0, 0, 1)<CR>m'gv''
+vnoremap <silent> ]l <Esc>:call NextIndent(0, 1, 0, 1)<CR>m'gv''
+vnoremap <silent> [L <Esc>:call NextIndent(0, 0, 1, 1)<CR>m'gv''
+vnoremap <silent> ]L <Esc>:call NextIndent(0, 1, 1, 1)<CR>m'gv''
+onoremap <silent> [l :call NextIndent(0, 0, 0, 1)<CR>
+onoremap <silent> ]l :call NextIndent(0, 1, 0, 1)<CR>
+onoremap <silent> [L :call NextIndent(1, 0, 1, 1)<CR>
+onoremap <silent> ]L :call NextIndent(1, 1, 1, 1)<CR>
+
+" plugins/90-final/plugins/10-local-configs/files -------------------
+
+if filereadable(expand("~/.vimrc.bindings"))
+    source ~/.vimrc.bindings
+endif
+
+" plugins/90-final/plugins/20-gvim-configs/files -------------------
+
+if has('gui_running')
+  source ~/.vim/gvimrc.bindings
+end

@@ -1,0 +1,209 @@
+
+" plugins/10-init/plugins/40-dein/files -------------------
+
+call dein#end()
+
+filetype plugin indent on
+
+if dein#check_install()
+  echo "installing plugins"
+  call dein#install()
+endif
+
+" plugins/20-default/plugins/10-global-defaults/files -------------------
+
+syntax on
+
+" prevent vim from adding that stupid empty line at the end of every file
+set noeol
+set binary
+
+" utf-8/unicode support
+" requires Vim to be compiled with Multibyte support, you can check that by
+" running `vim --version` and checking for +multi_byte.
+if has('multi_byte')
+  scriptencoding utf-8
+  set encoding=utf-8
+end
+
+" presentation settings
+set number              " precede each line with its line number
+set numberwidth=3       " number of culumns for line numbers
+set textwidth=0         " Do not wrap words (insert)
+set nowrap              " Do not wrap words (view)
+set showcmd             " Show (partial) command in status line.
+set showmatch           " Show matching brackets.
+set ruler               " line and column number of the cursor position
+set wildmenu            " enhanced command completion
+set visualbell          " use visual bell instead of beeping
+set laststatus=2        " always show the status line
+"set listchars=tab:▷⋅,trail:·,eol:$
+set listchars=tab:▷⋅,trail:·
+set list
+
+" highlight spell errors
+hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
+
+" behavior
+                        " ignore these files when completing names and in
+                        " explorer
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
+set shell=/bin/bash     " use bash for shell commands
+set autowriteall        " Automatically save before commands like :next and :make
+set hidden              " enable multiple modified buffers
+set history=1000
+set autoread            " automatically read file that has been changed on disk and doesn't have changes in vim
+set backspace=indent,eol,start
+set guioptions-=T       " disable toolbar"
+set completeopt=menuone,preview
+let bash_is_sh=1        " syntax shell files as bash scripts
+set cinoptions=:0,(s,u0,U1,g0,t0 " some indentation options ':h cinoptions' for details
+set modelines=5         " number of lines to check for vim: directives at the start/end of file
+"set fixdel                 " fix terminal code for delete (if delete is broken but backspace works)
+set autoindent          " automatically indent new line
+
+set ts=4                " number of spaces in a tab
+set sw=4                " number of spaces for indent
+set et                  " expand tabs into spaces
+
+set ttimeoutlen=50      " fast Esc to normal mode
+
+" mouse settings
+if has("mouse")
+  set mouse=a
+endif
+set mousehide                           " Hide mouse pointer on insert mode."
+
+" search settings
+set incsearch           " Incremental search
+set hlsearch            " Highlight search match
+set ignorecase          " Do case insensitive matching
+set smartcase           " do not ignore if search pattern has CAPS
+
+
+" omni completion settings
+set ofu=syntaxcomplete#Complete
+let g:rubycomplete_buffer_loading = 0
+let g:rubycomplete_classes_in_global = 1
+
+" directory settings
+call system('mkdir -vp ~/.backup/undo/ > /dev/null 2>&1')
+set backupdir=~/.backup,.       " list of directories for the backup file
+set directory=~/.backup,~/tmp,. " list of directory names for the swap file
+set nobackup            " do not write backup files
+set backupskip+=~/tmp/*,/private/tmp/* " skip backups on OSX temp dir, for crontab -e to properly work
+set noswapfile          " do not write .swp files
+set undofile
+set undodir=~/.backup/undo/,~/tmp,.
+
+" folding
+set foldcolumn=0        " columns for folding
+set foldmethod=indent
+set foldlevel=9
+set nofoldenable        "dont fold by default "
+
+" extended '%' mapping for if/then/else/end etc
+runtime macros/matchit.vim
+
+let mapleader = ","
+let maplocalleader = "\\"
+
+" plugins/30-basic/plugins/01-ctrlp/files -------------------
+
+let g:ctrlp_map = '<leader>,'
+let g:ctrlp_cmd = 'CtrlP'
+
+let g:ctrlp_clear_cache_on_exit = 1
+
+let g:ctrlp_max_height = 20
+
+" jump to buffer in the same tab if already open
+let g:ctrlp_switch_buffer = 0
+
+" if in git repo - use git file listing command, should be faster
+" using this option overrides standard CtrlP ignore list based on vim wildignore
+" so use 'grep -v ...' to exclude common image and font files from the search
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files --exclude-standard -cod | grep -viE "\.(png|gif|jpg|gz|woff|eot|tiff|ttf|otf)$"']
+
+" open multiple files with <c-z> to mark and <c-o> to open. v - opening in
+" vertical splits; j - jump to first open buffer; r - open first in current buffer
+let g:ctrlp_open_multiple_files = 'hjr'
+
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'mixed', 'line']
+
+let g:ctrlp_working_path_mode = 'ra'
+
+" plugins/30-basic/plugins/gundo/files -------------------
+
+let g:gundo_close_on_revert = 1
+
+" plugins/30-basic/plugins/indent/guides -------------------
+
+" indent-guides
+let g:indent_guides_start_level = 2
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+let g:indent_guides_color_change_percent = 5
+
+" plugins/30-basic/plugins/nerdtools/plugins/nerdtree/files -------------------
+
+" Tells the NERD tree to respect 'wildignore'.
+let NERDTreeRespectWildIgnore=1
+
+" plugins/30-basic/plugins/nerdtools/plugins/nerdtree/plugins/sortorder/files -------------------
+
+let NERDTreeSortOrder=['*']
+
+" plugins/30-basic/plugins/yankring/files -------------------
+
+let g:yankring_replace_n_pkey = '<leader>['
+let g:yankring_replace_n_nkey = '<leader>]'
+
+" put the yankring_history file in ~/.backup
+let g:yankring_history_dir = '~/.backup'
+
+" plugins/40-utils/plugins/utl/files -------------------
+
+" config help: <url:~/.vim/dein/.dein/plugin/utl_rc.vim#r=utl_cfg_hdl_scm_http>
+if has("mac")
+  let g:utl_cfg_hdl_scm_http_system = "!open '%u'"
+end
+
+" plugins/50-dev/plugins/delimitmate/files -------------------
+
+" Turns on/off the expansion of <Space>
+let g:delimitMate_expand_space = 1
+
+" Turns on/off the expansion of <CR>
+let g:delimitMate_expand_cr = 1
+
+" plugins/50-dev/plugins/syntastic/files -------------------
+
+" TBD: check those setgings with latest plugin version
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=2
+let g:syntastic_check_on_wq=0
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+
+" plugins/60-lang/plugins/ruby/files -------------------
+
+let g:blockle_mapping = '<Leader>B'
+
+" plugins/80-extra/plugins/20-airline/files -------------------
+
+let g:airline_powerline_fonts=1
+let g:airline_theme='light' " dark simple badwolf solarized solarized2
+set noshowmode
+
+" plugins/90-final/plugins/10-local-configs/files -------------------
+
+if filereadable(expand("~/.vimrc.before"))
+    source ~/.vimrc.before
+endif
+
+" plugins/90-final/plugins/20-gvim-configs/files -------------------
+
+if has('gui_running')
+  source ~/.vim/gvimrc.before
+end

@@ -1,0 +1,26 @@
+
+" plugins/10-init/plugins/40-dein/files -------------------
+
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+" plugins/30-basic/plugins/00-unite/files -------------------
+
+if executable('ag')
+  let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup', '--hidden', '-g', '']
+endif
+
+" plugins/30-basic/plugins/00-unite/plugins/10-unite-colorscheme/files -------------------
+
+command! THEME Unite -no-start-insert -auto-preview colorscheme
+
+" plugins/90-final/plugins/10-local-configs/files -------------------
+
+if filereadable(expand("~/.vimrc.after"))
+    source ~/.vimrc.after
+endif
+
+" plugins/90-final/plugins/20-gvim-configs/files -------------------
+
+if has('gui_running')
+  source ~/.vim/gvimrc.after
+end
