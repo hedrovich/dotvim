@@ -12,6 +12,8 @@
     Plugin 'gmarik/Vundle.vim'
     Plugin 'git@github.com:craigemery/vim-autotag.git'
     Plugin 'git@github.com:tpope/vim-surround.git'
+    Plugin 'git@github.com:Shougo/dein.vim.git'
+    Plugin 'git@github.com:christoomey/vim-tmux-navigator.git'
     Plugin 'maksimr/vim-jsbeautify'
     Plugin 'kchmck/vim-coffee-script'
     Plugin 'git@github.com:rking/ag.vim.git'
@@ -42,6 +44,15 @@
     " All of your Plugins must be added before the following line
     call vundle#end()            " required
     filetype plugin indent on    " required
+    if exists('$TMUX')
+      let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+      let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    else
+      let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+      let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    endif
+    :autocmd InsertEnter * set cul
+    :autocmd InsertLeave * set nocul
     "filetype plugin on
     "
     " Brief help
@@ -54,8 +65,13 @@
     " Put your non-Plugin stuff after this line
 
 " plugins/10-init/plugins/20-init/files -------------------
+if &compatible
+  set nocompatible
+endif
+set t_Co=256
 
-set nocompatible
+
+filetype plugin indent on
 
 source ~/.vim/vimrc.plugins
 source ~/.vim/vimrc.before
@@ -80,7 +96,7 @@ set shiftwidth=2
 set softtabstop=2
 syntax enable
 colorscheme monokai
-set guifont=Ubuntu\ Mono\ 12
+set guifont=Ubuntu\ Mono\ 15
 " Vim plugin for showing matching html tags.
 " Maintainer:  Greg Sexton <gregsexton@gmail.com>
 " Credits: Bram Moolenar and the 'matchparen' plugin from which this draws heavily.
