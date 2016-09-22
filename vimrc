@@ -73,6 +73,8 @@ set t_Co=256
 
 filetype plugin indent on
 
+let mapleader=" "
+
 source ~/.vim/vimrc.plugins
 source ~/.vim/vimrc.before
 " ~/.vim/vimrc.after is loaded from ./after/plugin/after.vim after all plugins

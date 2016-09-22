@@ -95,8 +95,7 @@ hi PmenuThumb ctermfg=darkcyan guibg=#c0c0c0 guifg=white
 
 hi Question ctermfg=green guifg=#4e9a06
 
-hi Search ctermfg=white ctermbg=LightRed guibg=#ff4500 guifg=white
-"hi Search ctermfg=white ctermbg=LightRed guibg=#ff69b4 guifg=white
+hi Search guibg=peru guifg=wheat
 
 hi SpecialKey ctermfg=darkcyan guifg=#3465a4
 
