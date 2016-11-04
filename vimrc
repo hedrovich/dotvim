@@ -13,6 +13,7 @@
     Plugin 'git@github.com:craigemery/vim-autotag.git'
     Plugin 'git@github.com:tpope/vim-surround.git'
     Plugin 'git@github.com:Shougo/dein.vim.git'
+    Plugin 'git@github.com:tomasr/molokai.git'
     Plugin 'git@github.com:christoomey/vim-tmux-navigator.git'
     Plugin 'maksimr/vim-jsbeautify'
     Plugin 'kchmck/vim-coffee-script'
