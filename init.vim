@@ -1,0 +1,1 @@
+/Users/maximhedrovich/.vim/vimrc

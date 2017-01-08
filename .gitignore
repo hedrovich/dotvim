@@ -1,6 +1,5 @@
 
 # plugins/10-init/plugins/20-init/files -------------------
-
 dein
 src
 .config.new

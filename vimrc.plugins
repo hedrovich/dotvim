@@ -34,10 +34,6 @@ call dein#add('greplace.vim')
 
 call dein#add('sjl/gundo.vim')
 
-" plugins/30-basic/plugins/indent/guides -------------------
-
-call dein#add('Indent-Guides')
-colorscheme default
 
 " plugins/30-basic/plugins/nerdtools/plugins/nerdtree/files -------------------
 
@@ -123,8 +119,6 @@ call dein#add('ekalinin/Dockerfile.vim')
 
 " plugins/60-lang/plugins/elixir/files -------------------
 
-call dein#add('elixir-lang/vim-elixir')
-
 " plugins/60-lang/plugins/javascript/files -------------------
 
 call dein#add('pangloss/vim-javascript')
@@ -138,8 +132,6 @@ call dein#add('kchmck/vim-coffee-script')
 call dein#add('elzr/vim-json')
 
 " plugins/60-lang/plugins/markdown/files -------------------
-
-call dein#add('tpope/vim-markdown')
 
 " plugins/60-lang/plugins/ruby/files -------------------
 
@@ -162,17 +154,9 @@ call dein#add('tpope/vim-rake')
 " ruby refactoring
 call dein#add('ecomba/vim-ruby-refactoring')
 
-" plugins/60-lang/plugins/ruby/plugins/1-haml/files -------------------
-
-call dein#add('tpope/vim-haml')
-
-" plugins/60-lang/plugins/ruby/plugins/9-rails/files -------------------
 
 " Rails support
 call dein#add('tpope/vim-rails')
-
-" apidock.com docs integration
-call dein#add('apidock.vim')
 
 " lightweight Rspec runner for Vim
 call dein#add('thoughtbot/vim-rspec')
@@ -181,10 +165,6 @@ call dein#add('thoughtbot/vim-rspec')
 call dein#add('stefanoverna/vim-i18n')
 
 " plugins/60-lang/plugins/rust/files -------------------
-
-call dein#add('rust-lang/rust.vim')
-
-" plugins/60-lang/plugins/tasks/files -------------------
 
 call dein#add('irrationalistic/vim-tasks')
 
@@ -198,8 +178,6 @@ call dein#add('guns/xterm-color-table.vim')
 
 " plugins/80-extra/plugins/20-airline/files -------------------
 
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
 
 " plugins/80-extra/plugins/90-themes/files -------------------
 
