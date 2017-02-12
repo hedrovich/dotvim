@@ -1,16 +1,6 @@
 
 " plugins/10-init/plugins/40-dein/files -------------------
 
-call dein#end()
-
-filetype plugin indent on
-
-if dein#check_install()
-  echo "installing plugins"
-  call dein#install()
-endif
-
-" plugins/20-default/plugins/10-global-defaults/files -------------------
 
 syntax on
 

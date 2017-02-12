@@ -56,26 +56,18 @@ vnoremap > >gv
 nnoremap j gj
 nnoremap k gk
 
-" easier increment/decrement
-nnoremap + <C-a>
-nnoremap - <C-x>
-
 " remove trailing spaces
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr>
 
 " plugins/30-basic/plugins/01-ctrlp/files -------------------
 
 nmap <leader>. :CtrlPClearCache<cr>:CtrlPMixed<cr>
-nmap <leader>l :CtrlPLine<cr>
-nmap <leader>b :CtrlPBuff<cr>
-nmap <leader>m :CtrlPBufTag<cr>
 nmap <leader>M :CtrlPBufTagAll<cr>
 nmap <leader>q :CtrlPQuickfix<cr>
 nmap <leader>D :CtrlPDir <space>
 
 " plugins/30-basic/plugins/gundo/files -------------------
 
-nmap <leader>u :GundoToggle<CR>
 
 " plugins/30-basic/plugins/nerdtools/plugins/nerdtree/plugins/nerdtree-tabs/files -------------------
 
@@ -109,9 +101,6 @@ nmap <leader>k :Ag<space>
 
 " plugins/30-basic/plugins/yankring/files -------------------
 
-" ,y to show the yankring
-nmap <leader>y :YRShow<cr>
-
 " plugins/40-utils/plugins/utl/files -------------------
 
 nmap <leader>o :Utl <space>
@@ -127,20 +116,6 @@ nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R>
 " same in visual mode
 vmap <leader>f y:let @/=escape(@", '\\[]$^*.')<CR>:set hls<CR>:silent Ggrep -F "<C-R>=escape(@", '\\"#')<CR>"<CR>:ccl<CR>:cw<CR><CR>
 
-" plugins/60-lang/plugins/ruby/plugins/9-rails/files -------------------
-
-" vim-rspec
-map <Leader>r :call RunNearestSpec()<CR>
-
-" plugins/70-custom/files -------------------
-
-" Jump to the next or previous line that has the same level or a lower
-" level of indentation than the current line.
-"
-" exclusive (bool): true: Motion is exclusive
-" false: Motion is inclusive
-" fwd (bool): true: Go to next line
-" false: Go to previous line
 " lowerlevel (bool): true: Go to line with lower indentation level
 " false: Go to line with the same indentation level
 " skipblanks (bool): true: Skip blank lines
@@ -181,14 +156,3 @@ onoremap <silent> ]l :call NextIndent(0, 1, 0, 1)<CR>
 onoremap <silent> [L :call NextIndent(1, 0, 1, 1)<CR>
 onoremap <silent> ]L :call NextIndent(1, 1, 1, 1)<CR>
 
-" plugins/90-final/plugins/10-local-configs/files -------------------
-
-if filereadable(expand("~/.vimrc.bindings"))
-    source ~/.vimrc.bindings
-endif
-
-" plugins/90-final/plugins/20-gvim-configs/files -------------------
-
-if has('gui_running')
-  source ~/.vim/gvimrc.bindings
-end
