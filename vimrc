@@ -1,16 +1,13 @@
-let g:python_host_skip_check=1
-let g:loaded_python3_provider=1
   set nocompatible              " be iMproved, required
 
     filetype off                  " required
     set rtp+=~/.vim/bundle/Vundle.vim
     call vundle#begin()
+
     Plugin 'gmarik/Vundle.vim'
     Plugin 'git@github.com:Shougo/denite.nvim.git'
     Plugin 'ecomba/vim-ruby-refactoring'
-    Plugin 'thoughtbot/vim-rspec'
     Plugin 'tpope/vim-dispatch'
-    Plugin 'git@github.com:Xuyuanp/nerdtree-git-plugin.git'
     Plugin 'git@github.com:slim-template/vim-slim.git'
     Plugin 'git@github.com:tpope/vim-surround.git'
     Plugin 'git@github.com:christoomey/vim-tmux-navigator.git'
@@ -24,28 +21,23 @@ let g:loaded_python3_provider=1
     Plugin 'git@github.com:jistr/vim-nerdtree-tabs.git'
     Plugin 'git@github.com:junegunn/vim-plug.git'
     Plugin 'git@github.com:vim-ruby/vim-ruby.git'
-    Plugin 'git@github.com:craigemery/vim-autotag.git'
     Plugin 'git@github.com:scrooloose/nerdcommenter.git'
     Plugin 'git@github.com:tpope/vim-rails.git'
     Plugin 'git@github.com:tpope/vim-endwise.git'
-    Plugin 'git@github.com:Lokaltog/vim-powerline.git'
+    Plugin 'git@github.com:vim-airline/vim-airline.git'
+    Plugin 'vim-airline/vim-airline-themes'
+    Plugin 'NLKNguyen/papercolor-theme'
     call vundle#end()            " required
     filetype plugin indent on    " required
 
 let g:ruby_path = system('echo ~/.rbenv/shims')
 let fortran_have_tabs=1
-let g:auto_save = 0
-
-autocmd InsertEnter,InsertLeave * set cul!
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
+set clipboard=unnamedplus
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-if &compatible
-  set nocompatible
-endif
+set nocompatible
+:autocmd InsertEnter * set cul
+:autocmd InsertLeave * set nocul
 set t_Co=256
 let fortran_have_tabs=1
 let g:auto_save = 0
@@ -58,6 +50,8 @@ else
   let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 endif
 
+set synmaxcol=128
+syntax sync minlines=256
 
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -80,8 +74,10 @@ autocmd BufNewFile,BufRead *.slim set ft=slim
 set shiftwidth=2
 set softtabstop=2
 syntax enable
+
+set background=light
 colorscheme monokai
-set guifont=Ubuntu\ Mono\ 16
+set guifont=Ubuntu\ Mono\ 15
 
 augroup matchhtmlparen
     autocmd! CursorMoved,CursorMovedI,WinEnter <buffer> call s:Highlight_Matching_Pair()
@@ -146,6 +142,11 @@ j   let skip ='synIDattr(synID(line("."), col("."), 0), "name") ' .
         return searchpairpos(starttag, midtag, endtag, flags, skip, stopline)
     endif
 endfu
+
+let g:python_host_skip_check=1
+let g:airline_theme='dark'
+let g:airline_enable_fugitive=0
+let g:airline_enable_syntastic=0
 
 fu! s:HighlightTagAtPosition(position)
     if a:position == [0, 0]

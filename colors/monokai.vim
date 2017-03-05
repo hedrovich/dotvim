@@ -1,206 +1,171 @@
-set background=dark
+" Vim color scheme
+" Name:         vividchalk.vim
+" Author:       Tim Pope <vimNOSPAM@tpope.info>
+" GetLatestVimScripts: 1891 1 :AutoInstall: vividchalk.vim
+" $Id: vividchalk.vim,v 1.8 2007-07-11 18:50:16 tpope Exp $
 
+" Based on the Vibrank Ink theme for TextMate
+" Distributable under the same terms as Vim itself (see :help license)
+
+if has("gui_running")
+    set background=dark
+endif
 hi clear
-
 if exists("syntax_on")
-  syntax reset
+   syntax reset
 endif
 
-function! PaletteHighlight(group, bg, fg, opts)
-  exe 'hi ' . a:group
-        \ . ' ctermbg=' . s:tcolors[a:bg]
-        \ . ' ctermfg=' . s:tcolors[a:fg]
-        \ . ' cterm='   . a:opts
-        \ . ' guibg='   . s:gcolors[a:bg]
-        \ . ' guifg='   . s:gcolors[a:fg]
-        \ . ' gui='     . a:opts
+let colors_name = "vividchalk"
+
+" First two functions adapted from inkpot.vim
+
+" map a urxvt cube number to an xterm-256 cube number
+fun! s:M(a)
+    return strpart("0245", a:a, 1) + 0
+endfun
+
+" map a urxvt colour to an xterm-256 colour
+fun! s:X(a)
+    if &t_Co == 88
+        return a:a
+    else
+        if a:a == 8
+            return 237
+        elseif a:a < 16
+            return a:a
+        elseif a:a > 79
+            return 232 + (3 * (a:a - 80))
+        else
+            let l:b = a:a - 16
+            let l:x = l:b % 4
+            let l:y = (l:b / 4) % 4
+            let l:z = (l:b / 16)
+            return 16 + s:M(l:x) + (6 * s:M(l:y)) + (36 * s:M(l:z))
+        endif
+    endif
+endfun
+
+function! E2T(a)
+    return s:X(a:a)
 endfunction
 
-function! PaletteTheme(theme)
-  for higroup in a:theme
-    call PaletteHighlight(higroup[0], higroup[1], higroup[2], higroup[3])
-  endfor
-
+function! s:choose(mediocre,good)
+    if &t_Co != 88 && &t_Co != 256
+        return a:mediocre
+    else
+        return s:X(a:good)
+    endif
 endfunction
 
-if &background == "dark"
-  " {{{
-  "--------------
-  " Dark Version 
-  " used with background=dark
-  "--------------
+function! s:hifg(group,guifg,first,second,...)
+    if a:0 && &t_Co == 256
+        let ctermfg = a:1
+    else
+        let ctermfg = s:choose(a:first,a:second)
+    endif
+    exe "highlight ".a:group." guifg=".a:guifg." ctermfg=".ctermfg
+endfunction
 
-  let s:gcolors = {
-  \ 'blue':        '#00afff',
-  \ 'lightblue':   '#87afff',
-  \ 'orange':      '#ffaf5f',
-  \ 'yellow':      '#ffd75f',
-  \ 'green':       '#87d75f',
-  \ 'red':         '#ff0000',
-  \ 'lightred':    '#ff5f5f',
-  \ 'white':       '#ffffff',
-  \ 'lightgray':   '#c6c6c6',
-  \ 'gray':        '#8a8a8a',
-  \ 'bggray':      '#1c1c1c',
-  \ 'lightbggray': '#262626',
-  \ 'visualgray':  '#303030',
-  \ 'black':       '#000000',
-  \ 'normfg':      '#ffffff',
-  \ 'normbg':      '#000000',
-  \ 'fg':          'fg',
-  \ 'bg':          'bg',
-  \ 'NONE':        'NONE'
-  \}
+function! s:hibg(group,guibg,first,second)
+    let ctermbg = s:choose(a:first,a:second)
+    exe "highlight ".a:group." guibg=".a:guibg." ctermbg=".ctermbg
+endfunction
 
-  let s:tcolors = {
-  \ 'blue':         39,
-  \ 'lightblue':   111,
-  \ 'orange':      215,
-  \ 'yellow':      221,
-  \ 'green':       113,
-  \ 'red':         196,
-  \ 'lightred':    203,
-  \ 'white':       255,
-  \ 'lightgray':   251,
-  \ 'gray':        244,
-  \ 'bggray':      234,
-  \ 'lightbggray': 235,
-  \ 'visualgray':  236,
-  \ 'black':         0,
-  \ 'normfg':      255,
-  \ 'normbg':        0,
-  \ 'fg':          'fg',
-  \ 'bg':          'bg',
-  \ 'NONE':        'NONE'
-  \}
+hi link railsMethod         PreProc
+hi link rubyDefine          Keyword
+hi link rubySymbol          Constant
+hi link rubyAccess          rubyMethod
+hi link rubyAttribute       rubyMethod
+hi link rubyEval            rubyMethod
+hi link rubyException       rubyMethod
+hi link rubyInclude         rubyMethod
+hi link rubyStringDelimiter rubyString
+hi link rubyRegexp          Regexp
+hi link rubyRegexpDelimiter rubyRegexp
+"hi link rubyConstant        Variable
+"hi link rubyGlobalVariable  Variable
+"hi link rubyClassVariable   Variable
+"hi link rubyInstanceVariable Variable
+hi link javascriptRegexpString  Regexp
+hi link javascriptNumber        Number
+hi link javascriptNull          Constant
 
-  "}}}
+call s:hifg("Normal","#EEEEEE","White",87)
+if &background == "light" || has("gui_running")
+    hi Normal guibg=Black ctermbg=Black
 else
-  "{{{
-  "--------------
-  " Light Version
-  " used with background=dark
-  "--------------
-
-  let s:gcolors = {
-  \ 'blue':        '#00afff',
-  \ 'lightblue':   '#87afff',
-  \ 'orange':      '#ffaf5f',
-  \ 'yellow':      '#ffd75f',
-  \ 'green':       '#87d75f',
-  \ 'red':         '#ff0000',
-  \ 'lightred':    '#ff5f5f',
-  \ 'white':       '#ffffff',
-  \ 'lightgray':   '#c6c6c6',
-  \ 'gray':        '#8a8a8a',
-  \ 'bggray':      '#1c1c1c',
-  \ 'lightbggray': '#262626',
-  \ 'visualgray':  '#303030',
-  \ 'black':       '#000000',
-  \ 'normfg':      '#000000',
-  \ 'normbg':      '#ffffff',
-  \ 'fg':          'fg',
-  \ 'bg':          'bg',
-  \ 'NONE':        'NONE'
-  \}
-
-  let s:tcolors = {
-  \ 'blue':         33,
-  \ 'lightblue':    39,
-  \ 'orange':      166,
-  \ 'yellow':      178,
-  \ 'green':        35,
-  \ 'red':         196,
-  \ 'lightred':    167,
-  \ 'white':       255,
-  \ 'lightgray':   244,
-  \ 'gray':        244,
-  \ 'bggray':      250,
-  \ 'lightbggray': 235,
-  \ 'visualgray':  236,
-  \ 'black':         0,
-  \ 'normfg':        0,
-  \ 'normbg':      255,
-  \ 'fg':          'fg',
-  \ 'bg':          'bg',
-  \ 'NONE':        'NONE'
-  \}
-
-  "}}}
+    hi Normal guibg=Black ctermbg=NONE
 endif
+highlight StatusLine    guifg=Black   guibg=#aabbee gui=bold ctermfg=Black ctermbg=White  cterm=bold
+highlight StatusLineNC  guifg=#444444 guibg=#aaaaaa gui=none ctermfg=Black ctermbg=Grey   cterm=none
+"if &t_Co == 256
+    "highlight StatusLine ctermbg=117
+"else
+    "highlight StatusLine ctermbg=43
+"endif
+highlight WildMenu      guifg=Black   guibg=#ffff00 gui=bold ctermfg=Black ctermbg=Yellow cterm=bold
+highlight Cursor        guifg=Black guibg=White ctermfg=Black ctermbg=White
+highlight CursorLine    guibg=#333333 guifg=NONE
+highlight CursorColumn  guibg=#333333 guifg=NONE
+highlight NonText       guifg=#404040 ctermfg=8
+highlight SpecialKey    guifg=#404040 ctermfg=8
+highlight Directory     none
+high link Directory     Identifier
+highlight ErrorMsg      guibg=Red ctermbg=DarkRed guifg=NONE ctermfg=NONE
+highlight Search        ctermfg=grey ctermbg=blue
+highlight IncSearch     guifg=White guibg=Black ctermfg=White ctermbg=Black
+highlight MoreMsg       guifg=#00AA00 ctermfg=Green
+highlight LineNr        guifg=#DDEEFF ctermfg=White
+call s:hibg("LineNr"    ,"#222222","DarkBlue",80)
+highlight Question      none
+high link Question      MoreMsg
+highlight Title         guifg=Magenta ctermfg=Magenta
+highlight VisualNOS     gui=none cterm=none
+call s:hibg("Visual"    ,"#555577","LightBlue",83)
+call s:hibg("VisualNOS" ,"#444444","DarkBlue",81)
+highlight WarningMsg    guifg=Red ctermfg=Red
+highlight Folded        guibg=#1100aa ctermbg=DarkBlue
+call s:hibg("Folded"    ,"#110077","DarkBlue",17)
+call s:hifg("Folded"    ,"#aaddee","LightCyan",63)
+highlight FoldColumn    none
+high link FoldColumn    Folded
+highlight Pmenu         guifg=White ctermfg=White gui=bold cterm=bold
+highlight PmenuSel      guifg=White ctermfg=White gui=bold cterm=bold
+call s:hibg("Pmenu"     ,"#000099","Blue",18)
+call s:hibg("PmenuSel"  ,"#5555ff","DarkCyan",39)
+highlight PmenuSbar     guibg=Grey ctermbg=Grey
+highlight PmenuThumb    guibg=White ctermbg=White
+highlight TabLine       gui=underline cterm=underline
+call s:hifg("TabLine"   ,"#bbbbbb","LightGrey",85)
+call s:hibg("TabLine"   ,"#333333","DarkGrey",80)
+highlight TabLineSel    guifg=White guibg=Black ctermfg=White ctermbg=Black
+highlight TabLineFill   gui=underline cterm=underline
+call s:hifg("TabLineFill","#bbbbbb","LightGrey",85)
+call s:hibg("TabLineFill","#808080","Grey",83)
 
-"        HiGroup         BG Color       FG Color       Attributes
-let s:theme = [
-\ ['Normal',       'normbg',      'normfg',      'NONE'],
-\ ['Underlined',   'NONE',        'NONE',        'NONE'],
-\ ['Error',        'red',         'white',       'NONE'],
-\ ['String',       'NONE',        'lightred',    'NONE'],
-\ ['Todo',         'black',       'orange',      'NONE'],
-\ ['Number',       'NONE',        'green',       'NONE'],
-\ ['Special',      'NONE',        'yellow',      'italic'],
-\ ['Function',     'NONE',        'orange',      'NONE'],
-\ ['SpecialKey',   'NONE',        'red',         'NONE'],
-\ ['MatchParen',   'NONE',        'lightred',    'bold'],
-\ ['Comment',      'NONE',        'gray',        'NONE'],
-\ ['Constant',     'NONE',        'green',       'NONE'],
-\ ['Keyword',      'NONE',        'normfg',      'NONE'],
-\ ['Identifier',   'NONE',        'lightgray',   'NONE'],
-\ ['Statement',    'NONE',        'blue',        'NONE'],
-\ ['PreProc',      'NONE',        'orange',      'NONE'],
-\ ['Type',         'NONE',        'lightblue',   'Bold'],
-\ ['Visual',       'visualgray',  'NONE',        'NONE'],
-\ ['NonText',      'bggray',      'NONE',        'NONE'],
-\ ['LineNr',       'bggray',      'gray',        'NONE'],
-\
-\ ['Pmenu',        'bggray',      'lightgray',   'NONE'],
-\ ['PmenuSel',     'blue',        'black',       'NONE'],
-\ ['PmenuSbar',    'visualgray',  'visualgray',  'NONE'],
-\ ['PmenuThumb',   'gray',        'bggray',      'NONE'],
-\ ['WildMenu',     'bggray',      'white',       'NONE'],
-\
-\ ['CursorColumn', 'bggray',      'NONE',        'NONE'],
-\ ['CursorLine',   'bggray',      'NONE',        'NONE'],
-\ ['CursorLineNr', 'black',       'NONE',        'bold'],
-\
-\ ['ColorColumn',  'bggray',      'NONE',        'NONE'],
-\ ['SignColumn',   'bggray',      'white',       'NONE'],
-\ ['StatusLine',   'bggray',      'lightblue',   'bold'],
-\ ['StatusLineNC', 'black',       'visualgray',   'NONE'],
-\ ['VertSplit',    'bggray',      'gray',        'NONE'],
-\ ['Directory',    'NONE',        'blue',        'NONE'],
-\
-\ ['ErrorMsg',     'red',         'white',       'bold'],
-\ ['WarningMsg',   'NONE',        'red',         'NONE'],
-\ ['MoreMsg',      'NONE',        'blue',        'bold'],
-\ ['ModeMsg',      'NONE',        'fg',          'bold'],
-\ ['Question',     'NONE',        'green',       'NONE'],
-\ ['Title',        'NONE',        'orange',      'bold'],
-\ ['Search',       'orange',      'visualgray',   'NONE'],
-\
-\ ['TabLine',      'bggray',      'blue',        'NONE'],
-\ ['TabLineSel',   'bggray',      'orange',      'underline'],
-\ ['TabLineFill',  'bggray',      'lightgray',   'NONE'],
-\
-\ ['Folded',       'bggray',      'lightgray',   'underline'],
-\
-\ ['DiffAdd',      'bg',          'green',       'NONE'],
-\ ['DiffChange',   'bg',          'yellow',      'NONE'],
-\ ['DiffDelete',   'bg',          'lightred',    'bold'],
-\ ['DiffText',     'bg',          'fg',          'NONE'],
-\
-\ ['SpellBad',     'NONE',        'red',         'undercurl'],
-\ ['SpellCap',     'NONE',        'blue',        'undercurl'],
-\ ['SpellRare',    'NONE',        'green',       'undercurl'],
-\ ['SpellLocal',   'NONE',        'green',       'undercurl']
-\ ]
-call PaletteTheme(s:theme)
-
-"===============================================================================
-" Filetype specific
-"===============================================================================
-
-hi link diffRemoved DiffDelete
-hi link diffAdded   DiffAdd
-hi link diffChanged DiffChange
-
-" vim: fdm=marker
+hi Type gui=none
+hi Statement gui=none
+if !has("gui_mac")
+    " Mac GUI degrades italics to ugly underlining.
+    hi Comment gui=italic
+    hi railsUserClass  gui=italic
+    hi railsUserMethod gui=italic
+endif
+hi Identifier cterm=none
+" Commented numbers at the end are *old* 256 color values
+"highlight PreProc       guifg=#EDF8F9
+call s:hifg("Comment"        ,"#9933CC","DarkMagenta",34) " 92
+" 26 instead?
+call s:hifg("Constant"       ,"#339999","DarkCyan",21) " 30
+call s:hifg("rubyNumber"     ,"#CCFF33","Yellow",60) " 190
+call s:hifg("String"         ,"#66FF00","LightGreen",44,82) " 82
+call s:hifg("Identifier"     ,"#FFCC00","Yellow",72) " 220
+call s:hifg("Statement"      ,"#FF6600","Brown",68) " 202
+call s:hifg("PreProc"        ,"#AAFFFF","LightCyan",47) " 213
+call s:hifg("railsUserMethod","#AACCFF","LightCyan",27)
+call s:hifg("Type"           ,"#AAAA77","Grey",57) " 101
+call s:hifg("railsUserClass" ,"#AAAAAA","Grey",7) " 101
+call s:hifg("Special"        ,"#33AA00","DarkGreen",24) " 7
+call s:hifg("Regexp"         ,"#44B4CC","DarkCyan",21) " 74
+call s:hifg("rubyMethod"     ,"#DDE93D","Yellow",77) " 191
+"highlight railsMethod   guifg=#EE1122 ctermfg=1
