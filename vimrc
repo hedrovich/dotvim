@@ -33,7 +33,7 @@
 let g:ruby_path = system('echo ~/.rbenv/shims')
 let fortran_have_tabs=1
 set clipboard=unnamedplus
-
+set noswapfile
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set nocompatible
 :autocmd InsertEnter * set cul
