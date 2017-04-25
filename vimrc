@@ -5,9 +5,6 @@
     call vundle#begin()
 
     Plugin 'gmarik/Vundle.vim'
-    Plugin 'git@github.com:Shougo/denite.nvim.git'
-    Plugin 'ecomba/vim-ruby-refactoring'
-    Plugin 'tpope/vim-dispatch'
     Plugin 'git@github.com:slim-template/vim-slim.git'
     Plugin 'git@github.com:tpope/vim-surround.git'
     Plugin 'git@github.com:christoomey/vim-tmux-navigator.git'
@@ -19,23 +16,33 @@
     Plugin 'git@github.com:ggreer/the_silver_searcher.git'
     Plugin 'git@github.com:scrooloose/nerdtree.git'
     Plugin 'git@github.com:jistr/vim-nerdtree-tabs.git'
-    Plugin 'git@github.com:junegunn/vim-plug.git'
     Plugin 'git@github.com:vim-ruby/vim-ruby.git'
     Plugin 'git@github.com:scrooloose/nerdcommenter.git'
-    Plugin 'git@github.com:tpope/vim-rails.git'
     Plugin 'git@github.com:tpope/vim-endwise.git'
-    Plugin 'git@github.com:vim-airline/vim-airline.git'
-    Plugin 'vim-airline/vim-airline-themes'
-    Plugin 'NLKNguyen/papercolor-theme'
+    "Plugin 'git@github.com:vim-airline/vim-airline.git'
+    "Plugin 'vim-airline/vim-airline-themes'
+    "Plugin 'NLKNguyen/papercolor-theme'
     call vundle#end()            " required
     filetype plugin indent on    " required
 
 let g:ruby_path = system('echo ~/.rbenv/shims')
 let fortran_have_tabs=1
+let g:ctrlp_use_caching = 0
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+    \ }
+endif
 set clipboard=unnamedplus
 set noswapfile
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 set nocompatible
+set modifiable
 :autocmd InsertEnter * set cul
 :autocmd InsertLeave * set nocul
 set t_Co=256
@@ -51,7 +58,6 @@ else
 endif
 
 set synmaxcol=128
-syntax sync minlines=256
 
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1

@@ -7,41 +7,14 @@ map Q gq
 " make Y consistent with C and D
 nnoremap Y y$
 
-" toggle highlight trailing whitespace
-nmap <silent> <leader>s :set nolist!<CR>
-
 " Ctrl-N to disable search match highlight
 nmap <silent> <C-N> :silent noh<CR>
 
 " Ctrol-E to switch between 2 last buffers
 nmap <C-E> :b#<CR>
 
-" Make shift-insert work like in Xterm
-map <S-Insert> <MiddleMouse>
-map! <S-Insert> <MiddleMouse>
 
-" ,n to get the next location (compilation errors, grep etc)
-nmap <leader>n :cn<CR>
-nmap <leader>N :cp<CR>
 
-" ,d to diffupdate
-nmap <leader>d :diffupdate<CR>
-nmap <leader>dp :diffput<CR>
-nmap <leader>dg :diffget<CR>
-
-" driving me insane this thing
-command Q q
-command Qa qa
-command QA qa
-command -nargs=* -complete=file E e <args>
-
-" center display after searching
-nnoremap n   nzz
-nnoremap N   Nzz
-nnoremap *   *zz
-nnoremap #   #zz
-nnoremap g*  g*zz
-nnoremap g#  g#z
 
 " fast expand current file's directory in command mode
 cnoremap %% <C-R>=expand('%:h').'/'<cr>
@@ -59,7 +32,7 @@ nnoremap k gk
 " remove trailing spaces
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr>
 
-" plugins/30-basic/plugins/01-ctrlp/files -------------------
+  " plugins/30-basic/plugins/01-ctrlp/files -------------------
 
 nmap <leader>. :CtrlPClearCache<cr>:CtrlPMixed<cr>
 nmap <leader>M :CtrlPBufTagAll<cr>
@@ -68,11 +41,6 @@ nmap <leader>D :CtrlPDir <space>
 
 " plugins/30-basic/plugins/gundo/files -------------------
 
-
-" plugins/30-basic/plugins/nerdtools/plugins/nerdtree/plugins/nerdtree-tabs/files -------------------
-
-" nerdtree with tqbs
-" Ctrl-P to Display the file browser tree
 nmap <C-P> :NERDTreeTabsToggle<CR>
 " ,p to show current file in the tree
 nmap <leader>p :NERDTreeFind<CR>
@@ -96,19 +64,9 @@ if has('gui_running')
 endif
 
 " plugins/30-basic/plugins/vim-ag/files -------------------
-
+"
 nmap <leader>k :Ag<space>
 
-" plugins/30-basic/plugins/yankring/files -------------------
-
-" plugins/40-utils/plugins/utl/files -------------------
-
-nmap <leader>o :Utl <space>
-
-" plugins/50-dev/plugins/fugitive/files -------------------
-
-" ,g for Ggrep
-nmap <leader>g :silent Ggrep<space>
 
 " ,f for global git serach for word under the cursor (with highlight)
 nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>

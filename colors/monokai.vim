@@ -7,9 +7,6 @@
 " Based on the Vibrank Ink theme for TextMate
 " Distributable under the same terms as Vim itself (see :help license)
 
-if has("gui_running")
-    set background=dark
-endif
 hi clear
 if exists("syntax_on")
    syntax reset
