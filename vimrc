@@ -19,12 +19,19 @@
     Plugin 'git@github.com:vim-ruby/vim-ruby.git'
     Plugin 'git@github.com:scrooloose/nerdcommenter.git'
     Plugin 'git@github.com:tpope/vim-endwise.git'
+    Plugin 'git@github.com:jiangmiao/auto-pairs.git'
+    Plugin 'git@github.com:pangloss/vim-javascript.git'
+    Plugin 'git@github.com:mxw/vim-jsx.git'
+    Plugin 'git@github.com:jelera/vim-javascript-syntax.git'
+    Plugin 'alvan/vim-closetag'
+    "Plugin 'git@github.com:tpope/vim-fireplace.git'
     "Plugin 'git@github.com:vim-airline/vim-airline.git'
     "Plugin 'vim-airline/vim-airline-themes'
     "Plugin 'NLKNguyen/papercolor-theme'
     call vundle#end()            " required
     filetype plugin indent on    " required
 
+let g:closetag_filenames = "*.html,*.xhtml,*.jsx"
 let g:ruby_path = system('echo ~/.rbenv/shims')
 let fortran_have_tabs=1
 let g:ctrlp_use_caching = 0

@@ -6,7 +6,6 @@
 
 " Based on the Vibrank Ink theme for TextMate
 " Distributable under the same terms as Vim itself (see :help license)
-
 hi clear
 if exists("syntax_on")
    syntax reset
@@ -119,6 +118,7 @@ high link Question      MoreMsg
 highlight Title         guifg=Magenta ctermfg=Magenta
 highlight VisualNOS     gui=none cterm=none
 call s:hibg("Visual"    ,"#555577","LightBlue",83)
+highlight MatchParen    cterm=bold ctermbg=none ctermfg=magenta
 call s:hibg("VisualNOS" ,"#444444","DarkBlue",81)
 highlight WarningMsg    guifg=Red ctermfg=Red
 highlight Folded        guibg=#1100aa ctermbg=DarkBlue
