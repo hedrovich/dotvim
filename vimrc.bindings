@@ -38,10 +38,12 @@ nmap <leader>. :CtrlPClearCache<cr>:CtrlPMixed<cr>
 nmap <leader>M :CtrlPBufTagAll<cr>
 nmap <leader>q :CtrlPQuickfix<cr>
 nmap <leader>D :CtrlPDir <space>
+nmap <leader>b :CtrlPBuffer <cr>
 
 " plugins/30-basic/plugins/gundo/files -------------------
 
 nmap <C-P> :NERDTreeTabsToggle<CR>
+
 " ,p to show current file in the tree
 nmap <leader>p :NERDTreeFind<CR>
 

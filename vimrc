@@ -24,6 +24,11 @@
     Plugin 'git@github.com:mxw/vim-jsx.git'
     Plugin 'git@github.com:jelera/vim-javascript-syntax.git'
     Plugin 'alvan/vim-closetag'
+    Plugin 'git@github.com:kchmck/vim-coffee-script.git'
+    Plugin 'git@github.com:zephod/vim-iterm2-navigator.git'
+    Plugin 'tomasiser/vim-code-dark'
+    Plugin 'git@github.com:t9md/vim-ruby-xmpfilter.git'
+
     "Plugin 'git@github.com:tpope/vim-fireplace.git'
     "Plugin 'git@github.com:vim-airline/vim-airline.git'
     "Plugin 'vim-airline/vim-airline-themes'
@@ -35,6 +40,13 @@ let g:closetag_filenames = "*.html,*.xhtml,*.jsx"
 let g:ruby_path = system('echo ~/.rbenv/shims')
 let fortran_have_tabs=1
 let g:ctrlp_use_caching = 0
+nmap <buffer> <C-T> <Plug>(xmpfilter-run)
+xmap <buffer> <C-T> <Plug>(xmpfilter-run)
+imap <buffer> <C-T> <Plug>(xmpfilter-run)
+
+nmap <buffer> <C-c> <Plug>(xmpfilter-mark)
+xmap <buffer> <C-c> <Plug>(xmpfilter-mark)
+imap <buffer> <C-c> <Plug>(xmpfilter-mark)
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 
@@ -90,32 +102,10 @@ syntax enable
 
 set background=light
 colorscheme monokai
+colorscheme codedark
 set guifont=Ubuntu\ Mono\ 15
 
-augroup matchhtmlparen
-    autocmd! CursorMoved,CursorMovedI,WinEnter <buffer> call s:Highlight_Matching_Pair()
-augroup END
 
-fu! s:Highlight_Matching_Pair()
-    if exists('w:tag_hl_on') && w:tag_hl_on
-        2match none
-        let w:tag_hl_on = 0
-    endif
-
-    if pumvisible() || (&t_Co < 8 && !has("gui_running"))
-        return
-    endif
-
-    let tagname = s:GetCurrentCursorTag()
-    if tagname == ""|return|endif
-
-    if tagname[0] == '/'
-        let position = s:SearchForMatchingTag(tagname[1:], 0)
-    else
-        let position = s:SearchForMatchingTag(tagname, 1)
-    endif
-    call s:HighlightTagAtPosition(position)
-endfu
 
 fu! s:GetCurrentCursorTag()
 
@@ -135,31 +125,8 @@ fu! s:GetCurrentCursorTag()
     return tagname
 endfu
 let g:ag_working_path_mode="r"
-fu! s:SearchForMatchingTag(tagname, forwards)
 
-    let starttag = '\V<'.escape(a:tagname, '\').'\%(\_s\%(\.\{-}\|\_.\{-}\%<'.line('.').'l\)/\@<!\)\?>'
-    let midtag = ''
-    let endtag = '\V</'.escape(a:tagname, '\').'\_s\*'.(a:forwards?'':'\zs').'>'
-j   let flags = 'nW'.(a:forwards?'':'b')
-
-j   let skip ='synIDattr(synID(line("."), col("."), 0), "name") ' .
-                \ '=~?  "\\%(html\\|xml\\)String\\|\\%(html\\|xml\\)CommentPart"'
-    execute 'if' skip '| let skip = 0 | endif'
-
-    let stopline = a:forwards ? line('w$') : line('w0')
-    let timeout = 300
-
-    if v:version >= 702
-        return searchpairpos(starttag, midtag, endtag, flags, skip, stopline, timeout)
-    else
-        return searchpairpos(starttag, midtag, endtag, flags, skip, stopline)
-    endif
-endfu
-
-let g:python_host_skip_check=1
-let g:airline_theme='dark'
-let g:airline_enable_fugitive=0
-let g:airline_enable_syntastic=0
+set listchars=trail:~
 
 fu! s:HighlightTagAtPosition(position)
     if a:position == [0, 0]
