@@ -9,7 +9,6 @@
     Plugin 'git@github.com:tpope/vim-surround.git'
     Plugin 'git@github.com:christoomey/vim-tmux-navigator.git'
     Plugin 'git@github.com:rking/ag.vim.git'
-    Plugin 'Valloric/YouCompleteMe'
     Plugin 'git@github.com:kien/ctrlp.vim.git'
     Plugin 'git://github.com/tpope/vim-eunuch.git'
     Plugin 'git@github.com:vim-scripts/taglist.vim.git'
@@ -28,7 +27,16 @@
     Plugin 'git@github.com:zephod/vim-iterm2-navigator.git'
     Plugin 'tomasiser/vim-code-dark'
     Plugin 'git@github.com:t9md/vim-ruby-xmpfilter.git'
+    Plugin 'epilande/vim-es2015-snippets'
+    Plugin 'git@github.com:Valloric/YouCompleteMe.git'
 
+    " React code snippets
+    Plugin 'epilande/vim-react-snippets'
+
+    " Ultisnips
+    Plugin 'SirVer/ultisnips'
+
+" Trigger configuration (Optional)
     "Plugin 'git@github.com:tpope/vim-fireplace.git'
     "Plugin 'git@github.com:vim-airline/vim-airline.git'
     "Plugin 'vim-airline/vim-airline-themes'
@@ -36,10 +44,14 @@
     call vundle#end()            " required
     filetype plugin indent on    " required
 
-let g:closetag_filenames = "*.html,*.xhtml,*.jsx"
+let g:closetag_filenames = "*.html,*.xhtml,*.jsx,*.js"
 let g:ruby_path = system('echo ~/.rbenv/shims')
 let fortran_have_tabs=1
+let g:jsx_ext_required = 0
 let g:ctrlp_use_caching = 0
+let g:python_host_prog = '/usr/bin/python2.7'
+let g:python3_host_prog ='/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6'
+let g:UltiSnipsExpandTrigger="<C-l>"
 nmap <buffer> <C-T> <Plug>(xmpfilter-run)
 xmap <buffer> <C-T> <Plug>(xmpfilter-run)
 imap <buffer> <C-T> <Plug>(xmpfilter-run)
@@ -96,6 +108,8 @@ let NERDTreeShowHidden=1
 set relativenumber
 set number
 autocmd BufNewFile,BufRead *.slim set ft=slim
+set smarttab
+set expandtab
 set shiftwidth=2
 set softtabstop=2
 syntax enable
@@ -104,8 +118,6 @@ set background=light
 colorscheme monokai
 colorscheme codedark
 set guifont=Ubuntu\ Mono\ 15
-
-
 
 fu! s:GetCurrentCursorTag()
 
@@ -126,8 +138,7 @@ fu! s:GetCurrentCursorTag()
 endfu
 let g:ag_working_path_mode="r"
 
-set listchars=trail:~
-
+set listchars=trail:·
 fu! s:HighlightTagAtPosition(position)
     if a:position == [0, 0]
         return

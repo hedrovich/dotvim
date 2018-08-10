@@ -22,7 +22,7 @@ hi SpellErrors guibg=red guifg=black ctermbg=red ctermfg=black
 " behavior
                         " ignore these files when completing names and in
                         " explorer
-set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.xpm
 set hidden              " enable multiple modified buffers
 set history=500
 if exists("&undofile")
@@ -34,7 +34,7 @@ set autoindent          " automatically indent new line
 
 set et                  " expand tabs into spaces
 
-set ttimeoutlen=30      " fast Esc to normal mode
+set ttimeoutlen=10      " fast Esc to normal mode
 
 set mousehide                           " Hide mouse pointer on insert mode."
 
