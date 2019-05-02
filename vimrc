@@ -29,6 +29,36 @@
     Plugin 'git@github.com:t9md/vim-ruby-xmpfilter.git'
     Plugin 'epilande/vim-es2015-snippets'
     Plugin 'git@github.com:Valloric/YouCompleteMe.git'
+    Plugin 'git@github.com:joshdick/onedark.vim.git'
+    Plugin 'git@github.com:joukevandermaas/vim-ember-hbs.git'
+    Plugin 'mhinz/vim-mix-format'
+    Plugin 'prettier/vim-prettier', {
+          \ 'do': 'yarn install',
+          \ 'branch': 'release/1.x',
+          \ 'for': [
+          \ 'javascript',
+          \ 'coffeescript',
+          \ 'typescript',
+          \ 'css',
+          \ 'less',
+          \ 'scss',
+          \ 'json',
+          \ 'graphql',
+          \ 'markdown',
+          \ 'vue',
+          \ 'lua',
+          \ 'php',
+          \ 'python',
+          \ 'ruby',
+          \ 'html',
+          \ 'swift' ] }
+    Plugin 'git@github.com:styled-components/vim-styled-components.git'
+    Plugin 'yalesov/vim-emblem'
+    Plugin 'elixir-lang/vim-elixir'
+    Plugin 'thinca/vim-ref'
+    Plugin 'neomake/neomake'
+    Plugin 'git@github.com:AndrewRadev/ember_tools.vim.git'
+    Plugin 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 
     " React code snippets
     Plugin 'epilande/vim-react-snippets'
@@ -44,12 +74,18 @@
     call vundle#end()            " required
     filetype plugin indent on    " required
 
+call neomake#configure#automake('w')
+let g:prettier#config#semi = 'false'
+let g:prettier#config#single_quote = 'true'
+let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#parser = 'flow'
 let g:closetag_filenames = "*.html,*.xhtml,*.jsx,*.js"
 let g:ruby_path = system('echo ~/.rbenv/shims')
 let fortran_have_tabs=1
 let g:jsx_ext_required = 0
 let g:ctrlp_use_caching = 0
 let g:python_host_prog = '/usr/bin/python2.7'
+let g:mix_format_on_save = 1
 let g:python3_host_prog ='/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6'
 let g:UltiSnipsExpandTrigger="<C-l>"
 nmap <buffer> <C-T> <Plug>(xmpfilter-run)
@@ -112,11 +148,20 @@ set smarttab
 set expandtab
 set shiftwidth=2
 set softtabstop=2
-syntax enable
 
-set background=light
-colorscheme monokai
-colorscheme codedark
+if (has("autocmd") && !has("gui_running"))
+  augroup colorset
+    autocmd!
+    let s:white = { "gui": "#ABB2BF", "cterm": "145", "cterm16" : "7" }
+    autocmd ColorScheme * call onedark#set_highlight("Normal", { "fg": s:white }) " `bg` will not be styled since there is no `bg` setting
+  augroup END
+endif
+
+let g:onedark_termcolors=256
+
+
+syntax on
+colorscheme onedark
 set guifont=Ubuntu\ Mono\ 15
 
 fu! s:GetCurrentCursorTag()
