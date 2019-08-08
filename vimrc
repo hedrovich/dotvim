@@ -31,6 +31,7 @@
     Plugin 'git@github.com:Valloric/YouCompleteMe.git'
     Plugin 'git@github.com:joshdick/onedark.vim.git'
     Plugin 'git@github.com:joukevandermaas/vim-ember-hbs.git'
+    Plugin 'git@github.com:rainerborene/vim-reek.git'
     Plugin 'mhinz/vim-mix-format'
     Plugin 'prettier/vim-prettier', {
           \ 'do': 'yarn install',
@@ -51,13 +52,14 @@
           \ 'python',
           \ 'ruby',
           \ 'html',
+          \ 'hbs',
           \ 'swift' ] }
     Plugin 'git@github.com:styled-components/vim-styled-components.git'
     Plugin 'yalesov/vim-emblem'
-    Plugin 'elixir-lang/vim-elixir'
     Plugin 'thinca/vim-ref'
     Plugin 'neomake/neomake'
     Plugin 'git@github.com:AndrewRadev/ember_tools.vim.git'
+    Plugin 'Chiel92/vim-autoformat'
     Plugin 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 
     " React code snippets
