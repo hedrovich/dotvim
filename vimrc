@@ -9,10 +9,12 @@
     Plugin 'git@github.com:tpope/vim-surround.git'
     Plugin 'git@github.com:christoomey/vim-tmux-navigator.git'
     Plugin 'git@github.com:rking/ag.vim.git'
-    Plugin 'git@github.com:kien/ctrlp.vim.git'
+    Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+    Plugin 'junegunn/fzf.vim'
     Plugin 'git://github.com/tpope/vim-eunuch.git'
+    Plugin 'git@github.com:sbdchd/neoformat.git'
+    Plugin 'git@github.com:prettier/vim-prettier.git'
     Plugin 'git@github.com:vim-scripts/taglist.vim.git'
-    Plugin 'git@github.com:ggreer/the_silver_searcher.git'
     Plugin 'git@github.com:scrooloose/nerdtree.git'
     Plugin 'git@github.com:jistr/vim-nerdtree-tabs.git'
     Plugin 'git@github.com:vim-ruby/vim-ruby.git'
@@ -20,47 +22,19 @@
     Plugin 'git@github.com:tpope/vim-endwise.git'
     Plugin 'git@github.com:jiangmiao/auto-pairs.git'
     Plugin 'git@github.com:pangloss/vim-javascript.git'
-    Plugin 'git@github.com:mxw/vim-jsx.git'
+    Plugin 'git@github.com:MaxMEllon/vim-jsx-pretty.git'
     Plugin 'git@github.com:jelera/vim-javascript-syntax.git'
     Plugin 'alvan/vim-closetag'
-    Plugin 'git@github.com:kchmck/vim-coffee-script.git'
-    Plugin 'git@github.com:zephod/vim-iterm2-navigator.git'
     Plugin 'tomasiser/vim-code-dark'
     Plugin 'git@github.com:t9md/vim-ruby-xmpfilter.git'
     Plugin 'epilande/vim-es2015-snippets'
     Plugin 'git@github.com:Valloric/YouCompleteMe.git'
     Plugin 'git@github.com:joshdick/onedark.vim.git'
-    Plugin 'git@github.com:joukevandermaas/vim-ember-hbs.git'
-    Plugin 'git@github.com:rainerborene/vim-reek.git'
-    Plugin 'mhinz/vim-mix-format'
-    Plugin 'prettier/vim-prettier', {
-          \ 'do': 'yarn install',
-          \ 'branch': 'release/1.x',
-          \ 'for': [
-          \ 'javascript',
-          \ 'coffeescript',
-          \ 'typescript',
-          \ 'css',
-          \ 'less',
-          \ 'scss',
-          \ 'json',
-          \ 'graphql',
-          \ 'markdown',
-          \ 'vue',
-          \ 'lua',
-          \ 'php',
-          \ 'python',
-          \ 'ruby',
-          \ 'html',
-          \ 'hbs',
-          \ 'swift' ] }
     Plugin 'git@github.com:styled-components/vim-styled-components.git'
     Plugin 'yalesov/vim-emblem'
     Plugin 'thinca/vim-ref'
     Plugin 'neomake/neomake'
-    Plugin 'git@github.com:AndrewRadev/ember_tools.vim.git'
     Plugin 'Chiel92/vim-autoformat'
-    Plugin 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
 
     " React code snippets
     Plugin 'epilande/vim-react-snippets'
@@ -74,22 +48,26 @@
     "Plugin 'vim-airline/vim-airline-themes'
     "Plugin 'NLKNguyen/papercolor-theme'
     call vundle#end()            " required
-    filetype plugin indent on    " required
 
+autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow
+let g:neoformat_try_formatprg = 1 " Use formatprg when available
+let g:neoformat_enabled_javascript = ['prettier-eslint', 'prettier']
+let g:neoformat_enabled_json = ['prettier-eslint', 'prettier']
+let g:neoformat_enabled_css = ['prettier-eslint', 'prettier']
+let g:neoformat_enabled_less = ['prettier-eslint', 'prettier']
+let g:auto_save = 1
+let g:vim_jsx_pretty_colorful_config = 1 
 call neomake#configure#automake('w')
-let g:prettier#config#semi = 'false'
-let g:prettier#config#single_quote = 'true'
-let g:prettier#config#bracket_spacing = 'true'
-let g:prettier#config#parser = 'flow'
 let g:closetag_filenames = "*.html,*.xhtml,*.jsx,*.js"
 let g:ruby_path = system('echo ~/.rbenv/shims')
 let fortran_have_tabs=1
 let g:jsx_ext_required = 0
-let g:ctrlp_use_caching = 0
-let g:python_host_prog = '/usr/bin/python2.7'
+let g:python_host_prog = '/usr/bin/python'
 let g:mix_format_on_save = 1
-let g:python3_host_prog ='/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6'
+let g:python3_host_prog ='/usr/local/bin/python3'
 let g:UltiSnipsExpandTrigger="<C-l>"
+
+nnoremap <c-p> :FZF<cr>
 nmap <buffer> <C-T> <Plug>(xmpfilter-run)
 xmap <buffer> <C-T> <Plug>(xmpfilter-run)
 imap <buffer> <C-T> <Plug>(xmpfilter-run)
@@ -100,12 +78,7 @@ imap <buffer> <C-c> <Plug>(xmpfilter-mark)
 if executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor
 
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 else
-  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-    \ }
 endif
 set clipboard=unnamedplus
 set noswapfile
@@ -116,7 +89,6 @@ set modifiable
 :autocmd InsertLeave * set nocul
 set t_Co=256
 let fortran_have_tabs=1
-let g:auto_save = 0
 
 if exists('$TMUX')
   let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
@@ -128,19 +100,12 @@ endif
 
 set synmaxcol=128
 
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-filetype plugin indent on
 
 source ~/.vim/vimrc.before
 call clearmatches()
 if executable('ag')
   set grepprg=ag\ --nogroup\ --nocolor
 
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  let g:ctrlp_use_caching = 0
 endif
 let NERDTreeShowHidden=1
 set relativenumber
@@ -198,3 +163,4 @@ fu! s:HighlightTagAtPosition(position)
                 \ .'\(\%' . line('.') . 'l<\zs[^<>]\{-}\ze\s[^<>]*\%' . col('.') . 'c.\{-}[\n>]\)/'
     let w:tag_hl_on = 1
 endfu
+set tags=tags

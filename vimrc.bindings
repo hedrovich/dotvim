@@ -34,11 +34,9 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<cr>
 
   " plugins/30-basic/plugins/01-ctrlp/files -------------------
 
-nmap <leader>. :CtrlPClearCache<cr>:CtrlPMixed<cr>
-nmap <leader>M :CtrlPBufTagAll<cr>
-nmap <leader>q :CtrlPQuickfix<cr>
-nmap <leader>D :CtrlPDir <space>
-nmap <leader>b :CtrlPBuffer <cr>
+nmap <leader>. :GFiles<cr>
+nmap <leader>g :GFiles?<cr>
+nmap <leader>b :Buffers<cr>
 
 " plugins/30-basic/plugins/gundo/files -------------------
 

@@ -29,8 +29,6 @@ if exists("&undofile")
     set undofile
 endif
 set backspace=indent,eol,start
-set cinoptions=:0,(s,u0,U1,g0,t0 " some indentation options ':h cinoptions' for details
-set autoindent          " automatically indent new line
 
 set et                  " expand tabs into spaces
 
@@ -64,32 +62,9 @@ runtime macros/matchit.vim
 let mapleader = ","
 let maplocalleader = "\\"
 
-" plugins/30-basic/plugins/01-ctrlp/files -------------------
-
-let g:ctrlp_map = '<leader>,'
-let g:ctrlp_cmd = 'CtrlP'
-
-let g:ctrlp_clear_cache_on_exit = 1
-
-let g:ctrlp_max_height = 20
-
-" jump to buffer in the same tab if already open
-let g:ctrlp_switch_buffer = 0
-
-" if in git repo - use git file listing command, should be faster
-" using this option overrides standard CtrlP ignore list based on vim wildignore
-" so use 'grep -v ...' to exclude common image and font files from the search
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files --exclude-standard -cod | grep -viE "\.(png|gif|jpg|gz|woff|eot|tiff|ttf|otf)$"']
-
-" open multiple files with <c-z> to mark and <c-o> to open. v - opening in
-" vertical splits; j - jump to first open buffer; r - open first in current buffer
-let g:ctrlp_open_multiple_files = 'hjr'
-
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'mixed', 'line']
-
-let g:ctrlp_working_path_mode = 'ra'
 
 
+nnoremap <,.> :FZF<cr>
 " Tells the NERD tree to respect 'wildignore'.
 let NERDTreeRespectWildIgnore=1
 
