@@ -86,3 +86,4 @@ endif
 if has('gui_running')
   source ~/.vim/gvimrc.before
 end
+

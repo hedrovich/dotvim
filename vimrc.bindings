@@ -52,6 +52,10 @@ nmap <leader>p :NERDTreeFind<CR>
 nmap <leader>/ :call NERDComment(0, "invert")<cr>
 vmap <leader>/ :call NERDComment(0, "invert")<cr>
 
+map <leader>s :TestFile<cr>
+map <leader>c :Tclose!<cr>
+map <leader>a :TestSuite<cr>
+
 " plugins/30-basic/plugins/session/files -------------------
 
 let g:session_autosave = 'no'

@@ -5,16 +5,14 @@
     call vundle#begin()
 
     Plugin 'gmarik/Vundle.vim'
-    Plugin 'git@github.com:slim-template/vim-slim.git'
     Plugin 'git@github.com:tpope/vim-surround.git'
     Plugin 'git@github.com:christoomey/vim-tmux-navigator.git'
     Plugin 'git@github.com:rking/ag.vim.git'
     Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
     Plugin 'junegunn/fzf.vim'
-    Plugin 'git://github.com/tpope/vim-eunuch.git'
-    Plugin 'git@github.com:sbdchd/neoformat.git'
-    Plugin 'git@github.com:prettier/vim-prettier.git'
-    Plugin 'git@github.com:vim-scripts/taglist.vim.git'
+    "Plugin 'git@github.com:sbdchd/neoformat.git'
+    "Plugin 'git@github.com:prettier/vim-prettier.git'
+    "Plugin 'git@github.com:vim-scripts/taglist.vim.git'
     Plugin 'git@github.com:scrooloose/nerdtree.git'
     Plugin 'git@github.com:jistr/vim-nerdtree-tabs.git'
     Plugin 'git@github.com:vim-ruby/vim-ruby.git'
@@ -26,21 +24,21 @@
     Plugin 'git@github.com:jelera/vim-javascript-syntax.git'
     Plugin 'alvan/vim-closetag'
     Plugin 'tomasiser/vim-code-dark'
-    Plugin 'git@github.com:t9md/vim-ruby-xmpfilter.git'
-    Plugin 'epilande/vim-es2015-snippets'
-    Plugin 'git@github.com:Valloric/YouCompleteMe.git'
+    "Plugin 'git@github.com:t9md/vim-ruby-xmpfilter.git'
+    "Plugin 'epilande/vim-es2015-snippets'
+    "Plugin 'git@github.com:Valloric/YouCompleteMe.git'
     Plugin 'git@github.com:joshdick/onedark.vim.git'
-    Plugin 'git@github.com:styled-components/vim-styled-components.git'
-    Plugin 'yalesov/vim-emblem'
-    Plugin 'thinca/vim-ref'
-    Plugin 'neomake/neomake'
+    "Plugin 'git@github.com:styled-components/vim-styled-components.git'
+    "Plugin 'yalesov/vim-emblem'
+    "Plugin 'thinca/vim-ref'
     Plugin 'Chiel92/vim-autoformat'
-
+    Plugin 'vim-test/vim-test'
+    Plugin 'kassio/neoterm'
+    "Plugin 'SirVer/ultisnips'
     " React code snippets
-    Plugin 'epilande/vim-react-snippets'
+    "Plugin 'epilande/vim-react-snippets'
+    "
 
-    " Ultisnips
-    Plugin 'SirVer/ultisnips'
 
 " Trigger configuration (Optional)
     "Plugin 'git@github.com:tpope/vim-fireplace.git'
@@ -49,7 +47,19 @@
     "Plugin 'NLKNguyen/papercolor-theme'
     call vundle#end()            " required
 
+" spec command
+
+let test#ruby#bundle_exec = 0
+let g:neoterm_size = 80
+let g:neoterm_focus_when_test_fail = 1
+let g:neoterm_autoscroll=1 
+let test#ruby#rspec#executable = "RAILS_ENV=test bundle exec rspec"
+
+let g:neoterm_default_mod='botright'
+let test#strategy = "neoterm"
 autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ flow
+:let &winheight = &lines * 7 / 10
+:let &winwidth = &columns * 5 / 8
 let g:neoformat_try_formatprg = 1 " Use formatprg when available
 let g:neoformat_enabled_javascript = ['prettier-eslint', 'prettier']
 let g:neoformat_enabled_json = ['prettier-eslint', 'prettier']
@@ -57,7 +67,7 @@ let g:neoformat_enabled_css = ['prettier-eslint', 'prettier']
 let g:neoformat_enabled_less = ['prettier-eslint', 'prettier']
 let g:auto_save = 1
 let g:vim_jsx_pretty_colorful_config = 1 
-call neomake#configure#automake('w')
+"call neomake#configure#automake('w')
 let g:closetag_filenames = "*.html,*.xhtml,*.jsx,*.js"
 let g:ruby_path = system('echo ~/.rbenv/shims')
 let fortran_have_tabs=1
@@ -66,6 +76,13 @@ let g:python_host_prog = '/usr/bin/python'
 let g:mix_format_on_save = 1
 let g:python3_host_prog ='/usr/local/bin/python3'
 let g:UltiSnipsExpandTrigger="<C-l>"
+set nobackup
+set nowritebackup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+:let g:ruby_indent_block_style = 'do'
+:let g:ruby_indent_assignment_style = 'variable'
+tnoremap <Esc> <C-\><C-n>
 
 nnoremap <c-p> :FZF<cr>
 nmap <buffer> <C-T> <Plug>(xmpfilter-run)
@@ -126,10 +143,10 @@ endif
 
 let g:onedark_termcolors=256
 
-
 syntax on
 colorscheme onedark
 set guifont=Ubuntu\ Mono\ 15
+set backupcopy=yes
 
 fu! s:GetCurrentCursorTag()
 
